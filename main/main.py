@@ -54,7 +54,7 @@ def display_content(quote, routine, chess_puzzle):
     draw = ImageDraw.Draw(image)
 
     # Set initial coordinates and line height for quote
-    quote_x, quote_y = 10, 120
+    quote_x, quote_y = 10, 130
     line_height = 24  # Change this value according to your font size
 
     now = datetime.now()
@@ -66,7 +66,7 @@ def display_content(quote, routine, chess_puzzle):
 
     # Display date and day (left aligned)
     draw.text((10, 10), date, font=font48, fill=0)
-    draw.text((10, 60), day, font=font24, fill=0)
+    draw.text((10, 70), day, font=font24, fill=0)
 
     # Write "Delilah's Kingdom" (right aligned)
     kingdom_text = "Delilah's Kingdom"
