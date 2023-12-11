@@ -75,6 +75,23 @@ def display_content(quote, routine, chess_puzzle):
         draw.text((quote_x, quote_y), line, font=font24, fill=0)
         quote_y += line_height
 
+    # Draw a horizontal line after the quote
+    line_y = quote_y + 10  # Adjust the position of the line
+    draw.line([(10, line_y), (width - 10, line_y)], fill=0, width=2)  # Adjust width as needed
+
+    # Draw a vertical line below the horizontal line
+    vertical_line_x = width // 2
+    draw.line([(vertical_line_x, line_y + 5), (vertical_line_x, height - 10)], fill=0, width=2)
+
+    # Write text on the left side of the vertical line
+    left_text = "NOW"
+    left_text_width = draw.textsize(left_text, font=font48)[0]
+    draw.text((vertical_line_x - left_text_width - 10, line_y + 10), left_text, font=font48, fill=0)
+
+    # Write text on the right side of the vertical line
+    right_text = "Next"
+    draw.text((vertical_line_x + 10, line_y + 10), right_text, font=font24, fill=0)
+
     epd.display(epd.getbuffer(image))
     epd.sleep()
 
