@@ -25,6 +25,97 @@ logging.basicConfig(level=logging.DEBUG)
 width = epd7in5_V2.EPD_WIDTH
 height = epd7in5_V2.EPD_HEIGHT
 
+routine_json = {
+  "routine": [
+      {
+        "date": "2023-12-12",
+        "schedule": [
+            {
+                "start_time": "00:00",
+                "end_time": "07:00",
+                "routine_text": "Sleep"
+            },
+            {
+                "start_time": "07:00",
+                "end_time": "07:45",
+                "routine_text": "Ready for School"
+            },
+            {
+                "start_time": "07.45",
+                "end_time": "13.15",
+                "routine_text": "School"
+            },
+            {
+                "start_time": "13:15",
+                "end_time": "14:00",
+                "routine_text": "Lunch"
+            },
+            {
+                "start_time": "14:00",
+                "end_time": "15:00",
+                "routine_text": "Activity"
+            },
+            {
+                "start_time": "15:00",
+                "end_time": "15:45",
+                "routine_text": "Chess"
+            },
+            {
+                "start_time": "15:45",
+                "end_time": "16:15",
+                "routine_text": "Idle Time"
+            },
+            {
+                "start_time": "16:15",
+                "end_time": "18:00",
+                "routine_text": "TT"
+            },
+            {
+                "start_time": "18:00",
+                "end_time": "19:30",
+                "routine_text": "Leisure"
+            },
+            {
+                "start_time": "19:30",
+                "end_time": "20:00",
+                "routine_text": "Prepare bag for school"
+            },
+            {
+                "start_time": "20:00",
+                "end_time": "20:30",
+                "routine_text": "Dinner"
+            },
+            {
+                "start_time": "20:30",
+                "end_time": "00:00",
+                "routine_text": "Sleep"
+            }
+        ]
+      }
+  ]
+}
+
+
+def convert_to_12_hour(time):
+    return datetime.strptime(time, "%H:%M").strftime("%I:%M %p")
+
+
+# Function to get current routine based on current time and date
+def get_current_routine(routine_data):
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    for item in routine_data:
+        if item['date'] == current_date:
+            schedule = item['schedule']
+            now = datetime.now().time()
+            for slot in schedule:
+                start_time = datetime.strptime(slot['start_time'], "%H:%M").time()
+                end_time = datetime.strptime(slot['end_time'], "%H:%M").time()
+                if start_time <= now <= end_time:
+                    return slot, schedule.index(slot), schedule[schedule.index(slot) + 1] if schedule.index(slot) < len(schedule) - 1 else None
+    return None, None, None
+
+
+
 def get_motivational_quote():
     # Replace this with your method of fetching a daily motivational quote
     # Example using an API (change URL and structure based on your chosen API)
@@ -101,22 +192,39 @@ def display_content(quote, routine, chess_puzzle):
     vertical_line_end_y = line_y + 200  # Ending point of vertical line
     draw.line([(vertical_line_x, line_y + 5), (vertical_line_x, vertical_line_end_y)], fill=0, width=2)
 
+    # Get current routine and next routine
+    current_routine, current_index, next_routine = get_current_routine(routine_json)
+
+
     # Write text on the left side of the vertical line (Left aligned)
     left_text = "NOW"
     draw.text((10, line_y + 15), left_text, font=font48, fill=0)
 
+    draw.text(
+        (50, line_y + 15),
+        f"{convert_to_12_hour(current_routine['start_time'])} - {convert_to_12_hour(current_routine['end_time'])}",
+        font=font18,
+        fill=0
+    )
+
     # Write text below "Left text here"
-    below_left_text = "Routine"
+    below_left_text = current_routine["routine_text"]
     draw.text((10, line_y + 100), below_left_text, font=font24, fill=0)
 
     # Write text on the right side of the vertical line (Right aligned)
-    right_text = "Next"
+    right_text = f"Next"
     right_text_width = draw.textsize(right_text, font=font48)[0]
     draw.text((vertical_line_x + 10, line_y + 15), right_text, font=font48, fill=0)
 
+    draw.text(
+        (vertical_line_x + 60, line_y + 15),
+        f"{convert_to_12_hour(current_routine['start_time'])} - {convert_to_12_hour(current_routine['end_time'])}",
+        font=font18,
+        fill=0
+    )
 
     # Write text below "Right text here" (Right aligned)
-    below_right_text = "Chess Puzzle"
+    below_right_text = next_routine["routine_text"]
     draw.text((vertical_line_x + 10, line_y + 100), below_right_text, font=font24, fill=0)
 
     draw.line([(10, vertical_line_end_y), (width - 10, vertical_line_end_y)], fill=0, width=2)  # Adjust width as needed
