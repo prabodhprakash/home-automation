@@ -99,8 +99,7 @@ def display_content(quote, routine, chess_puzzle):
     below_right_text = "Chess Puzzle"
     draw.text((width - right_text_width - 10, line_y + 40), below_right_text, font=font24, fill=0)
 
-
-epd.display(epd.getbuffer(image))
+    epd.display(epd.getbuffer(image))
     epd.sleep()
 
 
