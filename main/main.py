@@ -247,8 +247,8 @@ while True:
         if next_routine:
             ist = pytz.timezone('Asia/Kolkata')
             current_time = datetime.now(ist).time()
-            next_start_time = datetime.strptime(next_routine['start_time'], "%H.%M").time()
-            difference = datetime.combine(datetime.today(), next_start_time) - datetime.combine(datetime.today(),
+            next_start_time = datetime.strptime(next_routine['start_time'], "%H:%M").time()
+            difference = datetime.combine(datetime.now(ist).today(), next_start_time) - datetime.combine(datetime.now(ist).today(),
                                                                                                 current_time)
 
             if difference.total_seconds() > 0:
