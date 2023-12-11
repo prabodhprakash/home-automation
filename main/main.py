@@ -233,31 +233,30 @@ def display_content(quote, current_routine, current_index, next_routine):
     epd.sleep()
 
 
-try:
-    # Get a motivational quote
-    motivational_quote = get_motivational_quote()
+while True:
+    try:
+        # Get a motivational quote
+        motivational_quote = get_motivational_quote()
 
-    # Define your routine and chess puzzle for the day
-    daily_routine = "Your daily routine goes here."
-    chess_puzzle = "Your chess puzzle goes here."
+        # Get current routine and next routine
+        current_routine, current_index, next_routine = get_current_routine(routine_json["routine"])
 
-    # Get current routine and next routine
-    current_routine, current_index, next_routine = get_current_routine(routine_json["routine"])
+        # Display content on the e-paper display
+        display_content(motivational_quote, current_routine, current_index, next_routine)
 
-    # Display content on the e-paper display
-    display_content(motivational_quote, current_routine, current_index, next_routine)
+        if next_routine:
+            ist = pytz.timezone('Asia/Kolkata')
+            current_time = datetime.now(ist).time()
+            next_start_time = datetime.strptime(next_routine['start_time'], "%H.%M").time()
+            difference = datetime.combine(datetime.today(), next_start_time) - datetime.combine(datetime.today(),
+                                                                                                current_time)
 
-    if next_routine:
-        ist = pytz.timezone('Asia/Kolkata')
-        current_time = datetime.now(ist).time()
-        next_start_time = datetime.strptime(next_routine['start_time'], "%H.%M").time()
-        difference = datetime.combine(datetime.today(), next_start_time) - datetime.combine(datetime.today(),
-                                                                                            current_time)
-
-        if difference.total_seconds() > 0:
-            print(f"Sleeping for {difference.total_seconds()} seconds...")
-            time.sleep(difference.total_seconds())
-except KeyboardInterrupt:
-    print("Keyboard Interrupt")
-    epd7in5_V2.epdconfig.module_exit()
-    exit()
+            if difference.total_seconds() > 0:
+                print(f"Sleeping for {difference.total_seconds()} seconds...")
+                time.sleep(difference.total_seconds())
+        else:
+            break
+    except KeyboardInterrupt:
+        print("Keyboard Interrupt")
+        epd7in5_V2.epdconfig.module_exit()
+        exit()
