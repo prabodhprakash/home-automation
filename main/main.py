@@ -3,6 +3,7 @@
 import sys
 import os
 import requests
+import pytz
 from datetime import datetime
 
 picdir = os.path.join("/home/prabodhprakash/automation/home-automation", "pic")
@@ -102,7 +103,8 @@ def convert_to_12_hour(time):
 
 # Function to get current routine based on current time and date
 def get_current_routine(routine_data):
-    current_date = datetime.now().strftime("%Y-%m-%d")
+    ist = pytz.timezone('Asia/Kolkata')
+    current_date = datetime.now(ist).strftime("%Y-%m-%d")
     for item in routine_data:
         print(item['date'], current_date)
         if item['date'] == current_date:
@@ -151,7 +153,8 @@ def display_content(quote, routine, chess_puzzle):
     quote_x, quote_y = 10, 130
     line_height = 24  # Change this value according to your font size
 
-    now = datetime.now()
+    ist = pytz.timezone('Asia/Kolkata')
+    now = datetime.now(ist)
     date = now.strftime("%Y-%m-%d")
     day = now.strftime("%A")
 
