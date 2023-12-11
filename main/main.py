@@ -107,7 +107,9 @@ def get_current_routine(routine_data):
         if item['date'] == current_date:
             schedule = item['schedule']
             now = datetime.now().time()
+            print(now)
             for slot in schedule:
+                print(slot)
                 start_time = datetime.strptime(slot['start_time'], "%H:%M").time()
                 end_time = datetime.strptime(slot['end_time'], "%H:%M").time()
                 if start_time <= now <= end_time:
@@ -194,7 +196,7 @@ def display_content(quote, routine, chess_puzzle):
 
     # Get current routine and next routine
     current_routine, current_index, next_routine = get_current_routine(routine_json["routine"])
-
+    print(current_routine, next_routine)
 
     # Write text on the left side of the vertical line (Left aligned)
     left_text = "NOW"
