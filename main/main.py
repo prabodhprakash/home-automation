@@ -104,6 +104,7 @@ def convert_to_12_hour(time):
 def get_current_routine(routine_data):
     current_date = datetime.now().strftime("%Y-%m-%d")
     for item in routine_data:
+        print(item['date'], current_date)
         if item['date'] == current_date:
             schedule = item['schedule']
             now = datetime.now().time()
