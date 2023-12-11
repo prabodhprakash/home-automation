@@ -83,16 +83,24 @@ def display_content(quote, routine, chess_puzzle):
     vertical_line_x = width // 2
     draw.line([(vertical_line_x, line_y + 5), (vertical_line_x, height - 10)], fill=0, width=2)
 
-    # Write text on the left side of the vertical line
+    # Write text on the left side of the vertical line (Left aligned)
     left_text = "NOW"
-    left_text_width = draw.textsize(left_text, font=font48)[0]
-    draw.text((vertical_line_x - left_text_width - 10, line_y + 10), left_text, font=font48, fill=0)
+    draw.text((10, line_y + 15), left_text, font=font48, fill=0)
+
+    # Write text below "Left text here"
+    below_left_text = "Routine"
+    draw.text((10, line_y + 40), below_left_text, font=font24, fill=0)
 
     # Write text on the right side of the vertical line
     right_text = "Next"
-    draw.text((vertical_line_x + 10, line_y + 10), right_text, font=font24, fill=0)
+    right_text_width = draw.textsize(right_text, font=font24)[0]
+    draw.text((width - right_text_width - 10, line_y + 15), right_text, font=font24, fill=0)
 
-    epd.display(epd.getbuffer(image))
+    below_right_text = "Chess Puzzle"
+    draw.text((width - right_text_width - 10, line_y + 40), below_right_text, font=font24, fill=0)
+
+
+epd.display(epd.getbuffer(image))
     epd.sleep()
 
 
