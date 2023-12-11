@@ -203,7 +203,7 @@ def display_content(quote, routine, chess_puzzle):
     draw.text((10, line_y + 15), left_text, font=font48, fill=0)
 
     draw.text(
-        (250, line_y + 25),
+        (100, line_y + 25),
         f"{convert_to_12_hour(current_routine['start_time'])} - {convert_to_12_hour(current_routine['end_time'])}",
         font=font18,
         fill=0
@@ -219,7 +219,7 @@ def display_content(quote, routine, chess_puzzle):
     draw.text((vertical_line_x + 10, line_y + 15), right_text, font=font48, fill=0)
 
     draw.text(
-        (vertical_line_x + 310, line_y + 25),
+        (vertical_line_x + 160, line_y + 25),
         f"{convert_to_12_hour(current_routine['start_time'])} - {convert_to_12_hour(current_routine['end_time'])}",
         font=font18,
         fill=0
