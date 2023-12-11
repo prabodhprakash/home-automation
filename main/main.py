@@ -49,7 +49,7 @@ def display_content(quote, routine, chess_puzzle):
     image = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw = ImageDraw.Draw(image)
 
-    draw.text((10, 10), quote, font=font48, fill=0)
+    draw.text((10, 10), quote, font=font24, fill=0)
 
     epd.display(epd.getbuffer(image))
     epd.sleep()
