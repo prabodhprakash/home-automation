@@ -21,6 +21,9 @@ import traceback
 
 logging.basicConfig(level=logging.DEBUG)
 
+width = epd7in5_V2.EPD_WIDTH
+height = epd7in5_V2.EPD_HEIGHT
+
 def get_motivational_quote():
     # Replace this with your method of fetching a daily motivational quote
     # Example using an API (change URL and structure based on your chosen API)
@@ -49,7 +52,23 @@ def display_content(quote, routine, chess_puzzle):
     image = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw = ImageDraw.Draw(image)
 
-    draw.text((10, 10), quote, font=font24, fill=0)
+    # Set initial coordinates and line height for quote
+    quote_x, quote_y = 10, 10
+    line_height = 24  # Change this value according to your font size
+
+    # Split the quote into multiple lines if it exceeds a certain width
+    max_quote_width = width - 20  # Adjust this according to your display width
+    quote_lines = []
+    current_line = ''
+    words = quote.split()
+    for word in words:
+        if draw.textsize(current_line + ' ' + word, font=font24)[0] <= max_quote_width:
+            current_line += ' ' + word
+        else:
+            quote_lines.append(current_line.strip())
+            current_line = word
+    if current_line:
+        quote_lines.append(current_line.strip())
 
     epd.display(epd.getbuffer(image))
     epd.sleep()
