@@ -43,12 +43,13 @@ def display_content(quote, routine, chess_puzzle):
     epd.Clear()
 
     font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
+    font48 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 48)
     font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
 
     image = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw = ImageDraw.Draw(image)
 
-    draw.text((10, 10), quote, font=font18, fill=0)
+    draw.text((10, 10), quote, font=font48, fill=0)
 
     epd.display(epd.getbuffer(image))
     epd.sleep()
