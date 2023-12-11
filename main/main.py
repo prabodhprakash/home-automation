@@ -109,10 +109,8 @@ def get_current_routine(routine_data):
         print(item['date'], current_date)
         if item['date'] == current_date:
             schedule = item['schedule']
-            now = datetime.now().time()
-            print(now)
+            now = datetime.now(ist).time()
             for slot in schedule:
-                print(slot)
                 start_time = datetime.strptime(slot['start_time'], "%H:%M").time()
                 end_time = datetime.strptime(slot['end_time'], "%H:%M").time()
                 if start_time <= now <= end_time:
@@ -200,14 +198,12 @@ def display_content(quote, routine, chess_puzzle):
 
     # Get current routine and next routine
     current_routine, current_index, next_routine = get_current_routine(routine_json["routine"])
-    print(current_routine, next_routine)
-
     # Write text on the left side of the vertical line (Left aligned)
     left_text = "NOW"
     draw.text((10, line_y + 15), left_text, font=font48, fill=0)
 
     draw.text(
-        (50, line_y + 15),
+        (250, line_y + 25),
         f"{convert_to_12_hour(current_routine['start_time'])} - {convert_to_12_hour(current_routine['end_time'])}",
         font=font18,
         fill=0
@@ -223,7 +219,7 @@ def display_content(quote, routine, chess_puzzle):
     draw.text((vertical_line_x + 10, line_y + 15), right_text, font=font48, fill=0)
 
     draw.text(
-        (vertical_line_x + 60, line_y + 15),
+        (vertical_line_x + 310, line_y + 25),
         f"{convert_to_12_hour(current_routine['start_time'])} - {convert_to_12_hour(current_routine['end_time'])}",
         font=font18,
         fill=0
