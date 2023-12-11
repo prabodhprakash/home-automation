@@ -7,7 +7,10 @@ import requests
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
 if os.path.exists(libdir):
+    print("Found the path")
     sys.path.append(libdir)
+else:
+    print("Not found the path")
 
 import logging
 from waveshare_epd import epd7in5_V2
