@@ -193,7 +193,7 @@ def display_content(quote, routine, chess_puzzle):
     draw.line([(vertical_line_x, line_y + 5), (vertical_line_x, vertical_line_end_y)], fill=0, width=2)
 
     # Get current routine and next routine
-    current_routine, current_index, next_routine = get_current_routine(routine_json)
+    current_routine, current_index, next_routine = get_current_routine(routine_json["routine"])
 
 
     # Write text on the left side of the vertical line (Left aligned)
