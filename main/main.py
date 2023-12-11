@@ -219,8 +219,8 @@ def display_content(quote, routine, chess_puzzle):
     draw.text((vertical_line_x + 10, line_y + 15), right_text, font=font48, fill=0)
 
     draw.text(
-        (vertical_line_x + 100, line_y + 35),
-        f"{convert_to_12_hour(current_routine['start_time'])} - {convert_to_12_hour(current_routine['end_time'])}",
+        (vertical_line_x + 130, line_y + 35),
+        f"{convert_to_12_hour(next_routine['start_time'])} - {convert_to_12_hour(next_routine['end_time'])}",
         font=font18,
         fill=0
     )
