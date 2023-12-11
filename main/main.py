@@ -81,7 +81,8 @@ def display_content(quote, routine, chess_puzzle):
 
     # Draw a vertical line below the horizontal line
     vertical_line_x = width // 2
-    draw.line([(vertical_line_x, line_y + 5), (vertical_line_x, line_y + 50)], fill=0, width=2)
+    vertical_line_end_y = line_y + 200  # Ending point of vertical line
+    draw.line([(vertical_line_x, line_y + 5), (vertical_line_x, vertical_line_end_y)], fill=0, width=2)
 
     # Write text on the left side of the vertical line (Left aligned)
     left_text = "NOW"
@@ -101,8 +102,7 @@ def display_content(quote, routine, chess_puzzle):
     below_right_text = "Chess Puzzle"
     draw.text((vertical_line_x + 10, line_y + 100), below_right_text, font=font24, fill=0)
 
-    # Draw a horizontal line that ends at the vertical line
-    draw.line([(10, line_y + 55), (vertical_line_x, line_y + 55)], fill=0, width=2)
+    draw.line([(10, vertical_line_end_y), (width - 10, vertical_line_end_y)], fill=0, width=2)  # Adjust width as needed
 
     epd.display(epd.getbuffer(image))
     epd.sleep()
