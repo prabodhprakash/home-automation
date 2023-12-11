@@ -131,7 +131,7 @@ def get_motivational_quote():
         return 'Failed to fetch quote'
 
 
-def display_content(quote, routine, chess_puzzle):
+def display_content(quote, current_routine, current_index, next_routine):
     # Create an image with a white background
     logging.info("epd7in5_V2 Demo")
     epd = epd7in5_V2.EPD()
@@ -196,14 +196,12 @@ def display_content(quote, routine, chess_puzzle):
     vertical_line_end_y = line_y + 200  # Ending point of vertical line
     draw.line([(vertical_line_x, line_y + 5), (vertical_line_x, vertical_line_end_y)], fill=0, width=2)
 
-    # Get current routine and next routine
-    current_routine, current_index, next_routine = get_current_routine(routine_json["routine"])
     # Write text on the left side of the vertical line (Left aligned)
     left_text = "NOW"
     draw.text((10, line_y + 15), left_text, font=font48, fill=0)
 
     draw.text(
-        (150, line_y + 35),
+        (140, line_y + 35),
         f"{convert_to_12_hour(current_routine['start_time'])} - {convert_to_12_hour(current_routine['end_time'])}",
         font=font18,
         fill=0
@@ -243,9 +241,22 @@ try:
     daily_routine = "Your daily routine goes here."
     chess_puzzle = "Your chess puzzle goes here."
 
-    # Display content on the e-paper display
-    display_content(motivational_quote, daily_routine, chess_puzzle)
+    # Get current routine and next routine
+    current_routine, current_index, next_routine = get_current_routine(routine_json["routine"])
 
+    # Display content on the e-paper display
+    display_content(motivational_quote, current_routine, current_index, next_routine)
+
+    if next_routine:
+        ist = pytz.timezone('Asia/Kolkata')
+        current_time = datetime.now(ist).time()
+        next_start_time = datetime.strptime(next_routine['start_time'], "%H.%M").time()
+        difference = datetime.combine(datetime.today(), next_start_time) - datetime.combine(datetime.today(),
+                                                                                            current_time)
+
+        if difference.total_seconds() > 0:
+            print(f"Sleeping for {difference.total_seconds()} seconds...")
+            time.sleep(difference.total_seconds())
 except KeyboardInterrupt:
     print("Keyboard Interrupt")
     epd7in5_V2.epdconfig.module_exit()
