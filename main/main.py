@@ -42,8 +42,8 @@ routine_json = {
                 "routine_text": "Ready for School"
             },
             {
-                "start_time": "07.45",
-                "end_time": "13.15",
+                "start_time": "07:45",
+                "end_time": "13:15",
                 "routine_text": "School"
             },
             {
