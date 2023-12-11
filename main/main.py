@@ -70,6 +70,11 @@ def display_content(quote, routine, chess_puzzle):
     if current_line:
         quote_lines.append(current_line.strip())
 
+    # Display the multiline quote
+    for line in quote_lines:
+        draw.text((quote_x, quote_y), line, font=font24, fill=0)
+        quote_y += line_height
+
     epd.display(epd.getbuffer(image))
     epd.sleep()
 
