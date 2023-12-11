@@ -94,12 +94,12 @@ def display_content(quote, routine, chess_puzzle):
     # Write text on the right side of the vertical line (Right aligned)
     right_text = "Next"
     right_text_width = draw.textsize(right_text, font=font48)[0]
-    draw.text((width - right_text_width - 10, line_y + 15), right_text, font=font24, fill=0)
+    draw.text((vertical_line_x + 10, line_y + 15), right_text, font=font48, fill=0)
+
 
     # Write text below "Right text here" (Right aligned)
     below_right_text = "Chess Puzzle"
-    draw.text((width - right_text_width - 10, line_y + 100), below_right_text, font=font24, fill=0)
-
+    draw.text((vertical_line_x + 10, line_y + 100), below_right_text, font=font24, fill=0)
 
     epd.display(epd.getbuffer(image))
     epd.sleep()
