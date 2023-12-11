@@ -54,7 +54,7 @@ def display_content(quote, routine, chess_puzzle):
     draw = ImageDraw.Draw(image)
 
     # Set initial coordinates and line height for quote
-    quote_x, quote_y = 10, 90
+    quote_x, quote_y = 10, 120
     line_height = 24  # Change this value according to your font size
 
     now = datetime.now()
