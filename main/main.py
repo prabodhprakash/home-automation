@@ -4,8 +4,8 @@ import sys
 import os
 import requests
 
-picdir = os.path.join("/home/prabodhprakash/automation/home-automation", "lib")
-libdir = os.path.join("/home/prabodhprakash/automation/home-automation", 'pic')
+picdir = os.path.join("/home/prabodhprakash/automation/home-automation", "pic")
+libdir = os.path.join("/home/prabodhprakash/automation/home-automation", 'lib')
 print(libdir)
 if os.path.exists(libdir):
     print("Found the path")
